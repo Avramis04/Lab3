@@ -21,7 +21,7 @@ using namespace std;
 // Function prototypes
 int printMenu();
 void fillInArray(int[], const int);
-void multArrays(const int[], const int[], int[], const int);
+void multArrays(const int [], const int [], int [], const int );
 void displayArray(const int[], const int);
 int sumOddArray(const int[], const int);
 bool isAllPositive(const int[], const int);
@@ -48,7 +48,7 @@ int main() {
 		switch (choice){
 			// Enter quantity
 			case 1:
-				fillInArray(quantity, 11);
+				fillInArray(quantity,SIZE);
 				break;
 			// Calculate total
 			case 2:
