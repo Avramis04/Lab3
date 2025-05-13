@@ -63,7 +63,7 @@ int main() {
 				// No code needed
 				break;
 			default:
-				assert(true);
+				assert(false);
 		}
 	} while (choice != 4);
 
