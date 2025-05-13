@@ -37,33 +37,33 @@ int main() {
 	const int SIZE = 10;
 
 	// Initialize array price
-	int price[SIZE] = { 12, 4, 8, 1, 17, 2, 4, 2, 9, 1 };
+	int price[SIZE] = {12, 4, 8, 1, 17, 2, 4, 2, 9, 1};
 	// Declare array quantity and total
-	int quantity[SIZE], total[9];
+	int quantity[SIZE], total[SIZE];
 
 	// Interactive menu
 	do {
 		choice = printMenu();
 
-		switch (choice) {
+		switch (choice){
 			// Enter quantity
-		case 1:
-			fillInArray(quantity, 11);
-			break;
+			case 1:
+				fillInArray(quantity, 11);
+				break;
 			// Calculate total
-		case 2:
-			multArrays(quantity, total, price, SIZE);
-			break;
+			case 2:
+				multArrays(quantity, total, price, SIZE);
+				break;
 			// Print total
-		case 3:
-			displayArray(total, SIZE);
-			break;
+			case 3:
+				displayArray(total, SIZE);
+				break;
 			// Exit
-		case 4:
-			// No code needed
-			break;
-		default:
-			assert(true);
+			case 4:
+				// No code needed
+				break;
+			default:
+				assert(true);
 		}
 	} while (choice != 4);
 
@@ -77,7 +77,7 @@ int main() {
  * <BR>
  * @return Returns the menu choice
  */
-int printMenu() {
+int printMenu(){
 	int choice;
 
 	do {
@@ -90,7 +90,7 @@ int printMenu() {
 		cout << "\nEnter the choice: ";
 		cin >> choice;
 
-		if (choice < 1 || choice > 4) {
+		if (choice < 1 || choice > 4){
 			cout << "\nWrong choice, try again.";
 		}
 	} while (choice < 1 || choice > 5);
@@ -104,10 +104,10 @@ int printMenu() {
  * @param arr The array to be filled in.
  * @param size The size of the array.
  */
-void fillInArray(int arr[], const int size) {
-	assert(size > 1);
+void fillInArray(int arr[], const int size){
+	assert (size > 1);
 
-	for (int i = 0; i < size; ++i) {
+	for (int i = 0; i < size; ++i){
 		cout << "\nEnter an element for the array at " << i << ": ";
 		cin >> arr[i];
 	}
@@ -122,11 +122,11 @@ void fillInArray(int arr[], const int size) {
  * @param arrDest The array containing the source elements.
  * @param size The size of the arrays.
  */
-void multArrays(const int arrQuantity[], const int arrPrice[], int arrTotal[], const int size) {
-	assert(size > 0);
+void multArrays(const int arrQuantity[], const int arrPrice[], int arrTotal[], const int size){
+	assert (size > 0);
 
-	for (int i = 0; i <= size; ++i) {
-		arrTotal[i] = arrQuantity[i] + arrPrice[i + 1];
+	for (int i = 0; i <= size; ++i){
+		arrTotal[i] = arrQuantity[i] + arrPrice[i+1];
 	}
 }
 
@@ -138,10 +138,10 @@ void multArrays(const int arrQuantity[], const int arrPrice[], int arrTotal[], c
  * @param ar The array containing the values
  * @param size The size of the array.
  */
-void displayArray(const int arr[], const int size) {
+void displayArray(const int arr[], const int size){
 	int sum = 0;
 
-	for (int i = 1; i < size; ++i) {
+	for (int i = 1; i < size; ++i){
 		cout << "\nValue at " << i << ": " << arr[i];
 		sum += arr[i];
 	}
@@ -150,18 +150,18 @@ void displayArray(const int arr[], const int size) {
 }
 
 // Sums the odd numbers in the array and returns the result
-int sumOddArray(const int arr[], const int size) {
-	//@TODO: You will need to complete this. Including makeing the appropriate comment header
+int sumOddArray(const int arr[], const int size){
+//@TODO: You will need to complete this. Including makeing the appropriate comment header
 	return 0;
 }
 
 // If all the values in the array are positive return true
-bool isAllPositive(const int arr[], const int size) {
+bool isAllPositive(const int arr[], const int size){
 	//@TODO: You will need to complete this. Including makeing the appropriate comment header
-	return 0;
+  return 0;
 }
 
 // Finds the average of all the odd numbers in the array and stores this in the last argument
-void avgOddArray(const int arr[], const int size, int& avgOdd) {
+void avgOddArray(const int arr[], const int size, int& avgOdd){
 	//@TODO: You will need to complete this. Including makeing the appropriate comment header
 }
