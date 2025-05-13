@@ -152,7 +152,13 @@ void displayArray(const int arr[], const int size){
 // Sums the odd numbers in the array and returns the result
 int sumOddArray(const int arr[], const int size){
 //@TODO: You will need to complete this. Including makeing the appropriate comment header
-	return 0;
+	int sum = 0;
+	for (int i = 0; i < size; ++i) {
+		if (arr[i] % 2 != 0) {
+			sum += arr[i];
+		}
+	}
+	return sum;
 }
 
 // If all the values in the array are positive return true
