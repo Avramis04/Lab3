@@ -1,4 +1,4 @@
-/** \file bugExample.cpp
+﻿/** \file bugExample.cpp
  *  \brief     A little with logical bugs in it
  *  \details   This program is littered with logical bugs. Your task is the
  *              following:
@@ -23,7 +23,7 @@ using namespace std;
 // Function prototypes
 int printMenu();
 void fillInArray(int[], const int);
-void multArrays(const int [], const int [], int [], const int );
+void multArrays(const int[], const int[], int[][2], const int);
 void displayArray(const int[], const int);
 int sumOddArray(const int[], const int);
 bool isAllPositive(const int[], const int);
@@ -41,7 +41,9 @@ int main() {
 	int sum = 0;
 	int avgOdd;
 
-	srand(static_cast<unsigned int>(time(0)));
+	srand(time(NULL)); // You only call this function once, then you can call rand()
+	// as many times as you like
+	int randomValue = rand() % 100; // Random number in range 0 - 99
 
 	// Initialize array price
 	int price[SIZE];
@@ -50,45 +52,50 @@ int main() {
 		price[i] = rand() % 20 + 1;
 	}
 	// Declare array quantity and total
-	int quantity[SIZE], total[SIZE];
+	int quantity[SIZE], total[SIZE][2];
+
+	int totalCol1[SIZE];
+	for (int i = 0; i < SIZE; ++i) {
+		totalCol1[i] = total[i][1];
+	}
 
 	// Interactive menu
 	do {
 		choice = printMenu();
 
-		switch (choice){
+		switch (choice) {
 			// Enter quantity
-			case 1:
-				fillInArray(quantity,SIZE);
-				break;
+		case 1:
+			fillInArray(quantity, SIZE);
+			break;
 			// Calculate total
-			case 2:
-				multArrays(quantity, price, total, SIZE);
-				break;
+		case 2:
+			multArrays(quantity, price, total, SIZE);
+			break;
 			// Print total
-			case 3:
-				displayArray(total, SIZE);
-				break;
+		case 3:
+			displayArray(total, SIZE);
+			break;
 			// Exit
-			case 4:
-				// No code needed
-				break;
-			case 5:
-				sum = sumOddArray(total, SIZE);
-				cout << "\nSum of odd numbers in total: " << sum;
-				break;
-			case 6:
-				if (isAllPositive(total, SIZE))
-					cout << "\nAll values in total are positive.";
-				else
-					cout << "\nThere is at least one non-positive value in total.";
-				break;
-			case 7:
-				avgOddArray(total, SIZE, avgOdd);
-				cout << "\nAverage of odd numbers in total: " << avgOdd;
-				break;
-			default:
-				assert(false);
+		case 4:
+			// No code needed
+			break;
+		case 5:
+			sum = sumOddArray(totalCol1, SIZE);
+			cout << "\nSum of odd numbers in total: " << sum;
+			break;
+		case 6:
+			if (isAllPositive(totalCol1, SIZE))
+				cout << "\nAll values in total are positive.";
+			else
+				cout << "\nThere is at least one non-positive value in total.";
+			break;
+		case 7:
+			avgOddArray(totalCol1, SIZE, avgOdd);
+			cout << "\nAverage of odd numbers in total: " << avgOdd;
+			break;
+		default:
+			assert(false);
 		}
 	} while (choice != 4);
 
@@ -102,7 +109,7 @@ int main() {
  * <BR>
  * @return Returns the menu choice
  */
-int printMenu(){
+int printMenu() {
 	int choice;
 
 	do {
@@ -119,7 +126,7 @@ int printMenu(){
 		cout << "\nEnter the choice: ";
 		cin >> choice;
 
-		if (choice < 1 || choice > 4){
+		if (choice < 1 || choice > 4) {
 			cout << "\nWrong choice, try again.";
 		}
 	} while (choice < 1 || choice > 5);
@@ -133,10 +140,10 @@ int printMenu(){
  * @param arr The array to be filled in.
  * @param size The size of the array.
  */
-void fillInArray(int arr[], const int size){
-	assert (size > 1);
+void fillInArray(int arr[], const int size) {
+	assert(size > 1);
 
-	for (int i = 0; i < size; ++i){
+	for (int i = 0; i < size; ++i) {
 		cout << "\nEnter an element for the array at " << i << ": ";
 		cin >> arr[i];
 	}
@@ -151,11 +158,13 @@ void fillInArray(int arr[], const int size){
  * @param arrDest The array containing the source elements.
  * @param size The size of the arrays.
  */
-void multArrays(const int arrQuantity[], const int arrPrice[], int arrTotal[], const int size){
-	assert (size > 0);
+void multArrays(const int arrQuantity[], const int arrPrice[], int arrTotal[][2], const int size) {
+	assert(size > 0);
 	const double VAT = 0.21;
 	for (int i = 0; i < size; ++i) {
-		arrTotal[i] = static_cast<int>(arrQuantity[i] * arrPrice[i] * (1 + VAT));
+		arrTotal[i][0] = arrQuantity[i] * arrPrice[i];
+		arrTotal[i][1] = static_cast<int>(arrTotal[i][0] * (1 + VAT));
+
 	}
 }
 
@@ -167,20 +176,26 @@ void multArrays(const int arrQuantity[], const int arrPrice[], int arrTotal[], c
  * @param ar The array containing the values
  * @param size The size of the array.
  */
-void displayArray(const int arr[], const int size){
-	int sum = 0;
+void displayArray(const int arr[][2], const int size) {
+	int sumWithoutVAT = 0;
+	int sumWithVAT = 0;
 
-	for (int i = 0; i < size; ++i){
-		cout << "\nValue at " << i << ": " << arr[i];
-		sum += arr[i];
+	for (int i = 0; i < size; ++i) {
+		cout << "\nItem " << i
+			<< " → Total without VAT: " << arr[i][0]
+			<< ", with VAT: " << arr[i][1];
+		sumWithoutVAT += arr[i][0];
+		sumWithVAT += arr[i][1];
 	}
 
-	cout << "\nThe total is: " << sum;
+	cout << "\nTotal without VAT: " << sumWithoutVAT;
+	cout << "\nTotal with VAT: " << sumWithVAT;
 }
 
+
 // Sums the odd numbers in the array and returns the result
-int sumOddArray(const int arr[], const int size){
-//@TODO: You will need to complete this. Including makeing the appropriate comment header
+int sumOddArray(const int arr[], const int size) {
+	//@TODO: You will need to complete this. Including makeing the appropriate comment header
 	int sum = 0;
 	for (int i = 0; i < size; ++i) {
 		if (arr[i] % 2 != 0) {
@@ -191,7 +206,7 @@ int sumOddArray(const int arr[], const int size){
 }
 
 // If all the values in the array are positive return true
-bool isAllPositive(const int arr[], const int size){
+bool isAllPositive(const int arr[], const int size) {
 	//@TODO: You will need to complete this. Including makeing the appropriate comment header
 	for (int i = 0; i < size; ++i) {
 		if (arr[i] <= 0) {
@@ -202,7 +217,7 @@ bool isAllPositive(const int arr[], const int size){
 }
 
 // Finds the average of all the odd numbers in the array and stores this in the last argument
-void avgOddArray(const int arr[], const int size, int& avgOdd){
+void avgOddArray(const int arr[], const int size, int& avgOdd) {
 	//@TODO: You will need to complete this. Including makeing the appropriate comment header
 	int sum = 0;
 	int count = 0;
