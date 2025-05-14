@@ -38,7 +38,8 @@ void avgOddArray(const int[], const int, int&);
 int main() {
 	int choice;
 	const int SIZE = 10;
-	
+	int sum = 0;
+	int avgOdd;
 
 	srand(static_cast<unsigned int>(time(0)));
 
@@ -72,6 +73,20 @@ int main() {
 			case 4:
 				// No code needed
 				break;
+			case 5:
+				sum = sumOddArray(total, SIZE);
+				cout << "\nSum of odd numbers in total: " << sum;
+				break;
+			case 6:
+				if (isAllPositive(total, SIZE))
+					cout << "\nAll values in total are positive.";
+				else
+					cout << "\nThere is at least one non-positive value in total.";
+				break;
+			case 7:
+				avgOddArray(total, SIZE, avgOdd);
+				cout << "\nAverage of odd numbers in total: " << avgOdd;
+				break;
 			default:
 				assert(false);
 		}
@@ -96,6 +111,10 @@ int printMenu(){
 		cout << "\n2) Calculate total";
 		cout << "\n3) Print total";
 		cout << "\n4) Exit";
+		cout << "\n5) Sum of odd numbers in total";
+		cout << "\n6) Check if all values in total are positive";
+		cout << "\n7) Average of odd numbers in total";
+
 
 		cout << "\nEnter the choice: ";
 		cin >> choice;
