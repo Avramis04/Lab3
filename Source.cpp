@@ -29,6 +29,7 @@ int sumOddArray(const int[], const int);
 bool isAllPositive(const int[], const int);
 void avgOddArray(const int[], const int, int&);
 
+
 /**
  * <code>main</code> is the main function of this program.
  * <BR>
@@ -37,7 +38,7 @@ void avgOddArray(const int[], const int, int&);
 int main() {
 	int choice;
 	const int SIZE = 10;
-
+	
 
 	srand(static_cast<unsigned int>(time(0)));
 
@@ -133,9 +134,9 @@ void fillInArray(int arr[], const int size){
  */
 void multArrays(const int arrQuantity[], const int arrPrice[], int arrTotal[], const int size){
 	assert (size > 0);
-
-	for (int i = 0; i < size; ++i){
-		arrTotal[i] = arrQuantity[i] * arrPrice[i+1];
+	const double VAT = 0.21;
+	for (int i = 0; i < size; ++i) {
+		arrTotal[i] = static_cast<int>(arrQuantity[i] * arrPrice[i] * (1 + VAT));
 	}
 }
 
